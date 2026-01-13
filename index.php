@@ -505,11 +505,11 @@ $(document).ready(function () {
         },
         dom: 'Bfrtip',  // B = buttons, f = filter, r = processing, t = table, i = info, p = pagination
         buttons: [
-            'copy',      // Copy to clipboard
-            'csv',       // Export CSV
-            'excel',     // Export Excel (XLSX)
-            'pdf',       // Export PDF
-            'print'      // Print view
+                           // Copy to clipboard
+                           // Export CSV
+            'excel',       // Export Excel (XLSX)
+            'pdf',         // Export PDF
+                          // Print view
         ]
     });
 });
