@@ -122,8 +122,12 @@ if (isset($_GET['edit'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+
+<!-- Buttons extension CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
 <style>
 *{
@@ -208,7 +212,7 @@ button{
 table{
     width: 100%;
     border-collapse: collapse;
-    min-width: 850px;           /* forces horizontal scroll on narrow screens */
+    min-width: 850px;
 }
 
 th,
@@ -242,10 +246,6 @@ img{
     background: #0d6efd;
 }
 
-.delete{
-    background: #dc3545;
-}
-
 .delete-btn {
     background: #dc3545;
     padding: 6px 10px;
@@ -266,6 +266,19 @@ img{
     .card { padding: 15px; }
     th, td { padding: 10px; font-size: 14px; }
     img { width: 42px; height: 42px; }
+}
+
+/* Optional: make export buttons look nicer */
+.dt-buttons {
+    margin-bottom: 15px;
+}
+.dt-button {
+    background: #4f46e5 !important;
+    color: white !important;
+    border: none !important;
+    margin-right: 8px !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
 }
 </style>
 
@@ -336,7 +349,7 @@ img{
 </div>
 
 <div class="table-wrapper">
-<table  id="userTable">
+<table id="userTable">
 <thead>
 <tr>
 <th>ID</th><th>Name</th><th>Email</th><th>Mobile</th><th>Gender</th><th>Photo</th><th>Action</th>
@@ -409,9 +422,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                this.value = ''; // reset file input
+                this.value = '';
             }
-            else if(file.size > 5*1024*1024){ // 5MB
+            else if(file.size > 5*1024*1024){
                 Swal.fire({
                     icon: 'error',
                     title: 'File Too Large',
@@ -431,8 +444,8 @@ function showPhoto(src) {
     Swal.fire({
         imageUrl: src,
         imageAlt: 'User Photo',
-        imageWidth: 300,  
-        imageHeight: 300, 
+        imageWidth: 300,
+        imageHeight: 300,
         showCloseButton: true,
         showConfirmButton: false,
         background: '#f4f6fb',
@@ -446,7 +459,7 @@ const deleteButtons = document.querySelectorAll('.delete-btn');
 
 deleteButtons.forEach(btn => {
     btn.addEventListener('click', function(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const userId = this.dataset.id;
 
         Swal.fire({
@@ -472,6 +485,13 @@ deleteButtons.forEach(btn => {
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
+<!-- Buttons extension + dependencies -->
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
 <script>
 $(document).ready(function () {
     $('#userTable').DataTable({
@@ -482,7 +502,15 @@ $(document).ready(function () {
         info: true,             
         language: {
             search: "Search User:"
-        }
+        },
+        dom: 'Bfrtip',  // B = buttons, f = filter, r = processing, t = table, i = info, p = pagination
+        buttons: [
+            'copy',      // Copy to clipboard
+            'csv',       // Export CSV
+            'excel',     // Export Excel (XLSX)
+            'pdf',       // Export PDF
+            'print'      // Print view
+        ]
     });
 });
 </script>
