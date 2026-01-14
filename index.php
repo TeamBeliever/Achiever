@@ -129,7 +129,10 @@ if (isset($_GET['edit'])) {
 <!-- Buttons extension CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <style>
+
 *{
     box-sizing: border-box;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -349,7 +352,8 @@ img{
 </div>
 
 <div class="table-wrapper">
-<table id="userTable">
+<div class="card"> 
+<table id="userTable" class="table-responsive table-bordered table-striped table-hover">
 <thead>
 <tr>
 <th>ID</th><th>Name</th><th>Email</th><th>Mobile</th><th>Gender</th><th>Photo</th><th>Action</th>
@@ -382,6 +386,7 @@ while($row=mysqli_fetch_assoc($res)){
 <?php } ?>
 </tbody>
 </table>
+</div>
 </div>
 
 </div>
